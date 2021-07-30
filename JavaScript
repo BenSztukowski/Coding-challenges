@@ -68,3 +68,59 @@ function primeFactors(n){
   }
   return result;
 }
+
+//Return the top three frequently used words in a text, as an array, cutting out special characters
+
+function topThreeWords(text) {
+  text = text.toLowerCase();
+  let count = {};
+  const reg = new RegExp(/[A-z]/);
+  let cleanedText= "";
+  for (let i = 0; i < text.length; i++){
+    if (reg.test(text[i]) || text[i]== " " || text[i] == "'"){
+      cleanedText += text[i];
+    }
+    if (text[i]=== " " && text[i+1]=== " "){
+      i++;
+    }
+  }
+  console.log(cleanedText)
+  let arr = cleanedText.split(" ");
+  
+  for (word of arr){
+    if (word in count){
+      count[word] += 1;
+    } else {
+      count[word] = 1;
+    }
+    console.log(count);
+  }
+  
+  let arrSort = [];
+  for (let k in count) {
+    arrSort.push({
+      name: k,
+      value: count[k]
+    });
+  }
+
+  let sorted = arrSort.sort(function(b, a) {
+    return (a.value > b.value) ? 1 : ((b.value > a.value) ? -1 : 0)
+  });
+  console.log(sorted);
+  let result = [];
+  let howMany = 3;
+  if (sorted.length<3){
+    howMany = sorted.length;
+  }
+  for (let i = 0; i < howMany; i++){
+    if (sorted[i].name && reg.test(sorted[i].name)){
+      result.push(sorted[i].name);
+    }
+    if (sorted.length>3 && !reg.test(sorted[i].name)){
+        howMany++;
+    }
+  }
+  return result;
+  
+}
