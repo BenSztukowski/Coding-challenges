@@ -124,3 +124,30 @@ function topThreeWords(text) {
   return result;
   
 }
+
+//Determine if one array is the same structure as another
+Array.prototype.sameStructureAs = function (other) {
+  if (isArray(this) && isArray(other)){
+    if (this.length == other.length){
+      for (let i = 0; i < this.length; i++){
+        if (this[i].toString().length != other[i].toString().length){
+            return false;
+        }
+        if ((isArray(this[i][0]) && !isArray(other[i][0])) || (!isArray(this[i][0]) && isArray(other[i][0]))){
+            return false;
+        }
+     }
+      return true;
+    } else {
+      return false;
+    }
+    return true;
+  } else {
+    return false;
+  }
+  // Return 'true' if and only if 'other' has the same
+    // nesting structure as 'this'.
+
+    // Note: You are given a function isArray(o) that returns
+    // whether its argument is an array.
+};
